@@ -1,0 +1,244 @@
+  FROM UNDER LINE 52 DELETE ALL  AND PASTE THIS!!!      
+
+
+
+     
+USTRUCT(BlueprintType)
+struct FActionsMap : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		TMap<FGameplayTag, FActionState> Actions;
+};
+
+USTRUCT(BlueprintType)
+struct FACFTurnInPlaceAsset
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		UAnimSequenceBase* Animation = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float AnimatedAngle = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FName SlotName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float PlayRate = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		bool ScaleTurnAngle = true;
+};
+
+USTRUCT(BlueprintType)
+struct FACFAnimTurnInPlace
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float TurnCheckMinAngle = 45.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float Turn180Threshold = 130.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float AimYawRateLimit = 50.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float ElapsedDelayTime = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float MinAngleDelay = 0.75f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float MaxAngleDelay = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset N_TurnIP_L90;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset N_TurnIP_R90;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset N_TurnIP_L180;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset N_TurnIP_R180;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset CLF_TurnIP_L90;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset CLF_TurnIP_R90;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset CLF_TurnIP_L180;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FACFTurnInPlaceAsset CLF_TurnIP_R180;
+
+};
+
+USTRUCT(BlueprintType)
+struct FPoseRotationOffset : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		struct FRotator SpineRotationOffset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		struct FRotator NeckRotationOffset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		struct FRotator HeadRotationOffset;
+
+};
+
+USTRUCT(BlueprintType)
+struct FALSCrouched : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimSequence* IdleCrouched;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimSequence* MovingCrouched;
+};
+
+USTRUCT(BlueprintType)
+struct FALSStanding : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimSequence* IdleStanding;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimSequence* Jump;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimsequence* Forward;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimsequence* Back;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimsequence* RightFacingForward;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		bool bRightFacingBack = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimsequence* LeftFacingForward;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		bool bLeftFacingBack = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		class UAnimSequence* Sprint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		struct FPoseRotationOffset RotationOffset;
+
+};
+
+
+USTRUCT(BlueprintType)
+struct FALSOverlay : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		struct FALSStanding StandingOverlay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		struct FALSCrouched CrouchedOverlay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ACF_ALS")
+		struct FACFAnimTurnInPlace TurnInPlace;
+
+};
+
+USTRUCT(BlueprintType)
+struct FACFLocomotion : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UBlendSpace* Movement;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UBlendSpace1D* Idle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UAimOffsetBlendSpace* AimOffset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UAnimSequence* JumpStart;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UAnimSequence* JumpLoop;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UAnimSequence* JumpEnd;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UAimOffsetBlendSpace1D* AdditiveBlendspace;
+};
+
+USTRUCT(BlueprintType)
+struct FACFMoveset : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		struct FACFLocomotion ACFLocomotion;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		struct FALSOverlay ALSOverlay;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAnimationOverlay : public FTableRowBase
+{
+
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		class UAnimSequence* Animation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACF)
+		float BlendingAlpha = 0.7f;
+
+};
